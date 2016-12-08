@@ -26,6 +26,7 @@ export default class FsClass extends Component {
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
         </Text>
+        </
       </View>
     );
   }
