@@ -6,27 +6,27 @@ import {
   StyleSheet
 } from 'react-native'
 
-export default class Posts extends Component {
+export default class Contact extends Component {
   render(){
     return(
       <View style={styles.container}>
-       <Text style={styles.text}>Create Post</Text>
-       <Text style={styles.text}>Edit Post</Text>
-       <Text style={styles.text}>Delete Post</Text>
-
+       <Text style={styles.welcome}>
+         Image  Upload
+       </Text>
      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  row: {
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: 'red',
+    backgroundColor: '#fff',
     flex: 1
   },
   text: {
+    flex: 1,
     fontSize: 20
   }
 })

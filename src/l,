@@ -1,0 +1,31 @@
+
+  <Scene
+key="home"
+component={Feed}
+title="Feed"
+/>
+<Scene
+key="contact"
+component={Contact}
+title="Messages"
+/>
+<Scene
+key="imageupload"
+component={ImageUpload}
+title="Upload"
+/>
+<Scene
+key="post"
+component={Posts}
+title="Posts"
+/>
+<Scene
+key="post"
+component={PostForm}
+title="Posts"
+/>
+<Scene
+key="profile"
+component={Profile}
+title="My Profile"
+/>
