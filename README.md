@@ -14,7 +14,7 @@ npm install
 
 create a config.js file in util folder for Firebase database connection
 
-```json
+```javascript
 module.exports = {
     API_KEY: "Your key goes here",
     AUTH_DOMAIN:"Your Auth Domain key goes here",
