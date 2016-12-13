@@ -54,10 +54,8 @@ style={styles.input}
 />
 
   <TouchableHighlight
-          style={styles.button}
-          onPress={() => this.addTodo()}
-          underlayColor='#dddddd'>
-          <Text style={styles.btnText}>Add!</Text>
+          style={styles.button}>
+          <Text style={styles.btnText}>Add item</Text>
         </TouchableHighlight>
      </View>
     )
@@ -87,18 +85,10 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderColor: '#E6E5ED',
     backgroundColor: '#F8F8F9',
-    justifyContent: 'flex-start',
   },
-  button: {
-  height: 36,
-  backgroundColor: '#48afdb',
-  justifyContent: 'center',
-  color: '#FFFFFF',
-  borderRadius: 4,
-},
 btnText: {
   fontSize: 18,
-  color: '#fff',
+  color: 'white',
   marginTop: 6,
 }
 })

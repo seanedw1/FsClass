@@ -12,7 +12,7 @@ npm install
 
 ## Config
 
-create a config.js file in util folder for database connection
+create a config.js file in util folder for Firebase database connection
 
 ```json
 module.exports = {
@@ -23,4 +23,12 @@ module.exports = {
     messagingSenderId: "Your Messaging Sender Id goes here"
 }
 
+```
+
+## React-native Server
+
+start the react-native server
+
+```
+react-native run-ios
 ```
