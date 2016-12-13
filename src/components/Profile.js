@@ -11,7 +11,7 @@ export default class Profile extends Component {
     return(
       <View style={styles.container}>
        <Text style={styles.welcome}>
-         Image  Upload
+         My profile
        </Text>
      </View>
     )
@@ -19,14 +19,15 @@ export default class Profile extends Component {
 }
 
 const styles = StyleSheet.create({
-  row: {
-    justifyContent: 'center',
-    padding: 10,
-    backgroundColor: '#fff',
-    flex: 1
-  },
-  text: {
+  container: {
     flex: 1,
-    fontSize: 20
-  }
-})
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#d9d9d9',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+});

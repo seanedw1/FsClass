@@ -10,23 +10,16 @@ export default class Contact extends Component {
   render(){
     return(
       <View style={styles.container}>
-       <Text style={styles.welcome}>
-         Image  Upload
-       </Text>
      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  row: {
-    justifyContent: 'center',
-    padding: 10,
-    backgroundColor: '#fff',
-    flex: 1
-  },
-  text: {
+  container: {
     flex: 1,
-    fontSize: 20
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#d9d9d9',
   }
-})
+});

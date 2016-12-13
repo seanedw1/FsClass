@@ -3,30 +3,54 @@ import React, {Component} from 'react'
 import {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  Button
 } from 'react-native'
 
+import ImagePicker from 'react-native-image-crop-picker';
+
+
 export default class ImageUpload extends Component {
+
+
+
   render(){
     return(
       <View style={styles.container}>
        <Text style={styles.welcome}>
-         Image  Upload
        </Text>
+       <Button
+title="Camera"
+color="#841584"
+accessibilityLabel="Learn more about this purple button"
+/>
+<Button
+title="Select image"
+color="#841584"
+accessibilityLabel="Learn more about this purple button"
+/>
      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  row: {
-    justifyContent: 'center',
-    padding: 10,
-    backgroundColor: '#fff',
-    flex: 1
-  },
-  text: {
+  container: {
     flex: 1,
-    fontSize: 20
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#d9d9d9',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  input: {
+    backgroundColor: 'white',
+    padding: 5,
+    height: 100,
+    width: 200,
+    color: 'black'
   }
-})
+});

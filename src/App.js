@@ -20,7 +20,8 @@ export default class App extends Component{
   render(){
     return(
       <Router>
-        <Scene key="root" tabs={true} >
+        <Scene key="root">
+<Scene key="TabBar" tabs={true}  tabBarStyle={{ backgroundColor: '#4484ce' }}>
 
             <Scene key="feed" component={Feed} title="Feed" initial={true} icon={TabIcon}/>
 
@@ -32,6 +33,9 @@ export default class App extends Component{
 
             <Scene key="profile" component={Profile} title="My Profile" icon={TabIcon}/>
 
+            <Scene key="postform" component={PostForm} title="Add new"/>
+
+</Scene>
         </Scene>
       </Router>
     )
