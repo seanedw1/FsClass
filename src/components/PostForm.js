@@ -8,7 +8,8 @@ import {
   Text,
   TextInput,
   TouchableHighlight,
-  StyleSheet
+  StyleSheet,
+  ListView
 } from 'react-native'
 
 
@@ -19,44 +20,120 @@ const firebaseApp = initializeApp({
   storageBucket: config.STORAGE_BUCKET
 })
 
+const itemsRef = firebaseApp.database().ref('items')
+
+let items = []
 
 export default class PostForm extends Component {
   constructor(props){
     super(props)
 
     this.state = {
-      newItem: ''
+      title: '',
+      location: '',
+      price: '',
+      category: '',
+      description: '',
     }
+
   }
+
+  componentWillMount(){
+      this.dataSource = new ListView.DataSource({rowHasChanged: (r1,r2) => r1 !== r2})
+
+  itemsRef.on('child_added', (snapshot) => {
+  // this.props.addItem(snapshot.val())
+})
+
+itemsRef.on('child_removed', (snapshot) => {
+ // this.props.removeItem(snapshot.val().id)
+})
+}
+
+
+remove(id){
+  itemsRef.child(id).remove()
+}
+
+
+add(){
+  const id = Math.random().toString(36).substring(7)
+  const itemRef = itemsRef.child(id)
+
+  if (this.state.title && this.state.location && this.state.price !== '') {
+    itemRef.set({
+      id,
+      title: this.state.title,
+      location: this.state.location,
+      price: this.state.price,
+      Category: this.state.category,
+      Description: this.state.description,
+      time: new Date().getTime()
+    });
+    this.setState({title: '', location: '', price: '', category: '', description: ''})
+    }
+   }
+
+renderRow(rowData){
+  return(
+  <Item name={rowData.title}
+        removable={this.props.connected}
+        onRemove={()=> this.remove(rowData.id)}
+        />
+  )
+}
 
   render(){
     return(
       <View style={styles.container}>
 
+      <View style={styles.inputcontainer}>
+
       <TextInput placeholder="Title"
       style={styles.input}
+      ref="title"
+      value={this.state.title}
+      onChangeText={(title)=> this.setState({title})}
       />
 
       <TextInput placeholder="Location"
-    style={styles.input}
-   />
-
-      <TextInput placeholder="$price"
       style={styles.input}
+      ref="location"
+      value={this.state.location}
+      onChangeText={(location)=> this.setState({location})}
       />
 
-   <TextInput placeholder="Category"
- style={styles.input}
-/>
+      <TextInput placeholder="$ price"
+      style={styles.input}
+      ref="price"
+      value={this.state.price}
+      onChangeText={(price)=> this.setState({price})}
+      />
 
-<TextInput placeholder="Description"
-style={styles.input}
-/>
+      <TextInput placeholder="Category"
+      style={styles.input}
+      ref="category"
+      value={this.state.category}
+      onChangeText={(category)=> this.setState({category})}
+      />
 
-  <TouchableHighlight
-          style={styles.button}>
-          <Text style={styles.btnText}>Add item</Text>
-        </TouchableHighlight>
+      <TextInput placeholder="Description"
+      style={styles.input}
+      ref="description"
+      value={this.state.description}
+      onChangeText={(description)=> this.setState({description})}
+      />
+      <TouchableHighlight
+              style={styles.button}
+              onPress={()=> this.add()}
+              >
+              <Text style={styles.btnText}>Add item</Text>
+            </TouchableHighlight>
+      </View>
+      <ListView
+  dataSource={this.dataSource.cloneWithRows(items)}
+  renderRow={this.renderRow.bind(this)}
+  enableEmptySections={true} />
      </View>
     )
   }
@@ -64,7 +141,6 @@ style={styles.input}
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
     padding: 10,
     backgroundColor: '#d9d9d9',
     flex: 1
@@ -73,20 +149,31 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   input: {
-    height: 50,
-    width: 300,
+    textAlign: 'center',
     color: 'black',
-    marginBottom: 10,
-    padding: 4,
-    marginRight: 1,
-    marginTop: 5,
+    height: 40,
+    width: 300,
+    marginBottom: 5,
+    marginTop: 3,
     fontSize: 18,
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: '#E6E5ED',
+    borderWidth: 3,
+    borderRadius: 3,
+    borderColor: '#f19f4d',
     backgroundColor: '#F8F8F9',
   },
+  inputcontainer: {
+    marginTop: 60,
+    padding: 10,
+    marginLeft:20,
+  },
+  button: {
+    height: 36,
+    width: 300,
+    backgroundColor: '#48afdb',
+    borderRadius: 4,
+  },
 btnText: {
+  textAlign: 'center',
   fontSize: 18,
   color: 'white',
   marginTop: 6,
