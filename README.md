@@ -32,3 +32,7 @@ start the react-native server
 ```
 react-native run-ios
 ```
+
+## Icons
+
+all icons used in this project are from [Iconfinder](https://www.iconfinder.com/iconsets/simplicio)

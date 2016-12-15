@@ -1,43 +1,35 @@
 import React, {Component} from 'react'
 import {Actions} from 'react-native-router-flux'
 import firebase from 'firebase'
-import Item from './items'
+import ItemList from './itemsList'
 
 
 import {
   View,
   Text,
   StyleSheet,
-  ListView
 } from 'react-native'
 
 export default class Posts extends Component {
   constructor(props) {
-    super(props)
-    this.state = {
-      dataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2}),
-    }
+      super(props);
+      this.state = {
+          items: []
+      }
   }
 
   // dataSource = [];
   componentWillMount() {
     // firebase data
-    firebase.database().ref('items').on('value', (data) => {
-      console.log(data.val());
-      var items = []
-      this.setState = {
-        dataSource: this.state.dataSource.cloneWithRows(data.val())
+    firebase.database().ref('items').on('value', (snapshot) => {
+      let data = snapshot.val()
+      console.log(data)
+      for(let i in data) {
+          this.state.items.push(data[i]);
       }
+      this.setState({items: this.state.items});
+      console.log(this.state.items);
     })
-  }
-
-  renderRow(data) {
-    console.log(data);
-    return (
-      <Item title={data.title}
-            removable={this.props.connected}
-            />
-    )
   }
 
   render(){
@@ -47,17 +39,10 @@ export default class Posts extends Component {
       <View style={styles.inputcontainer}>
 
        <Text onPress={goToPostForm} style={styles.text}>Create post</Text>
-       <Text  style={styles.text}>Create post</Text>
-       <Text style={styles.text}>Create post</Text>
-       <Text style={styles.text}>Create post</Text>
 
-       <ListView
-        style={styles.list}
-        dataSource={ this.state.dataSource }
-        renderRow={ this.renderRow.bind(this) }
-        enableEmptySections={true}
-        />
-        </View>
+
+       <ItemList items={this.state.items}/>
+       </View>
      </View>
     )
   }
@@ -76,10 +61,5 @@ const styles = StyleSheet.create({
     marginTop: 60,
     padding: 10,
     marginLeft:20,
-  },
-  list: {
-    padding: 10,
-    backgroundColor: '#d9d9d9',
-    flex: 1
   }
 })
