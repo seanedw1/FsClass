@@ -6,6 +6,7 @@ import Feed from './components/Feed'
 import ImageUpload from './components/ImageUpload'
 import Posts from './components/Posts'
 import PostForm from './components/PostForm'
+import EditForm from './components/EditForm'
 import Profile from './components/Profile'
 import Contact from './components/Contact'
 
@@ -21,7 +22,7 @@ export default class App extends Component{
     return(
       <Router>
         <Scene key="root">
-<Scene key="TabBar" tabs={true}  tabBarStyle={{ backgroundColor: '#4484ce' }}>
+            <Scene key="TabBar" tabs={true}  tabBarStyle={{ backgroundColor: '#4484ce' }}>
 
             <Scene key="feed" component={Feed} title="Feed" initial={true} icon={TabIcon}/>
 
@@ -35,7 +36,9 @@ export default class App extends Component{
 
             <Scene key="postform" component={PostForm} title="Add new"/>
 
-</Scene>
+            <Scene key="editform" component={EditForm} title="Update"/>
+
+            </Scene>
         </Scene>
       </Router>
     )

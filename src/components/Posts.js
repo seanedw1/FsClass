@@ -2,12 +2,12 @@ import React, {Component} from 'react'
 import {Actions} from 'react-native-router-flux'
 import firebase from 'firebase'
 import ItemList from './itemsList'
-
-
 import {
   View,
   Text,
   StyleSheet,
+  TouchableHighlight,
+  Image
 } from 'react-native'
 
 export default class Posts extends Component {
@@ -23,7 +23,6 @@ export default class Posts extends Component {
     // firebase data
     firebase.database().ref('items').on('value', (snapshot) => {
       let data = snapshot.val()
-      console.log(data)
       for(let i in data) {
           this.state.items.push(data[i]);
       }
@@ -34,13 +33,16 @@ export default class Posts extends Component {
 
   render(){
     const goToPostForm = () => Actions.postform();
+
     return(
       <View style={styles.container}>
       <View style={styles.inputcontainer}>
-
-       <Text onPress={goToPostForm} style={styles.text}>Create post</Text>
-
-
+      <TouchableHighlight onPress={goToPostForm} style={{width: 30, height: 30}}>
+      <Image
+           style={{width: 30, height: 30}}
+           source={require('../images/add.png')}
+         />
+      </TouchableHighlight>
        <ItemList items={this.state.items}/>
        </View>
      </View>
@@ -50,16 +52,12 @@ export default class Posts extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
     backgroundColor: '#d9d9d9',
-    flex: 1
+    marginTop:60
   },
   text: {
     fontSize: 20
   },
   inputcontainer: {
-    marginTop: 60,
-    padding: 10,
-    marginLeft:20,
   }
 })

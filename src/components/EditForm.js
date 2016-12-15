@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Actions } from 'react-native-router-flux'
-import {initializeApp} from 'firebase'
+import firebase from 'firebase'
 import config from '../util/config'
 
 import {
@@ -13,18 +13,7 @@ import {
 } from 'react-native'
 
 
-const firebaseApp = initializeApp({
-  apiKey: config.API_KEY,
-  authDomain: config.AUTH_DOMAIN,
-  databaseURL: config.DATABASE_URL,
-  storageBucket: config.STORAGE_BUCKET
-})
-
-const itemsRef = firebaseApp.database().ref('items')
-
-let items = []
-
-export default class PostForm extends Component {
+export default class EditForm extends Component {
   constructor(props){
     super(props)
 
@@ -38,43 +27,31 @@ export default class PostForm extends Component {
 
   }
 
-  componentWillMount(){
-      this.dataSource = new ListView.DataSource({rowHasChanged: (r1,r2) => r1 !== r2})
+  componentWillMount() {
+    // firebase data
+    firebase.database().ref('items').on('value', (snapshot) => {
+      let data = snapshot.val()
+      console.log(data)
+      for(let i in data) {
+      }
+      this.setState({items: this.state.items});
+      console.log(this.state.items);
+    })
+  }
 
-  itemsRef.on('child_added', (snapshot) => {
-   //this.props.addItem(snapshot.val())
-})
-
-itemsRef.on('child_removed', (snapshot) => {
-   //this.props.removeItem(snapshot.val().id)
-})
-}
-
-
-remove(id){
-  itemsRef.child(id).remove()
-}
+  update(id){
+    const itemRef = firebase.database().ref('items').set({
+          title: this.state.title,
+          location: this.state.location,
+          price: this.state.price,
+          Category: this.state.category,
+          Description: this.state.description,
+          time: new Date().getTime()
+        });
+        }
 
 
-add(){
-  const id = Math.random().toString(36).substring(7)
-  const itemRef = itemsRef.child(id)
-
-  if (this.state.title && this.state.location && this.state.price !== '') {
-    itemRef.set({
-      id,
-      title: this.state.title,
-      location: this.state.location,
-      price: this.state.price,
-      Category: this.state.category,
-      Description: this.state.description,
-      time: new Date().getTime()
-    });
-    this.setState({title: '', location: '', price: '', category: '', description: ''})
-    }
-   }
-
-  render(){
+  render(data){
     return(
       <View style={styles.container}>
 
@@ -116,9 +93,9 @@ add(){
       />
       <TouchableHighlight
               style={styles.button}
-              onPress={()=> this.add()}
+              onPress={()=> this.update(data.id)}
               >
-              <Text style={styles.btnText}>Add item</Text>
+              <Text style={styles.btnText}>Update</Text>
             </TouchableHighlight>
       </View>
      </View>

@@ -1,4 +1,7 @@
 import React, {Component} from 'react'
+import {Actions} from 'react-native-router-flux'
+import firebase from 'firebase'
+
 
 import {
   View,
@@ -9,6 +12,7 @@ import {
   Image
 } from 'react-native'
 
+
 export default class ItemList extends Component {
   constructor(props) {
      super(props);
@@ -16,6 +20,7 @@ export default class ItemList extends Component {
        dataSource: new ListView.DataSource({
            rowHasChanged: (row1, row2) => row1 !== row2,
          })
+
      };
   }
 
@@ -32,26 +37,39 @@ componentWillReceiveProps(props) {
    this.setState({dataSource: this.getDataSource(props.items)});
 }
 
+
+remove(id){
+  firebase.database().ref('items')
+.child(id).remove()
+}
+
   renderRows = (data) => {
+    const goToEditForm = () => Actions.editform();
       return (
-        <TouchableHighlight
-     underlayColor='#dddddd'>
      <View>
        <View style={styles.row}>
          <Text style={styles.todoText}>{data.title}</Text>
          <Text style={styles.todoText}>{data.location}</Text>
-         <Text style={styles.todoText}>{data.price}</Text>
+         <Text style={styles.price}>${data.price}</Text>
+
+         <View style={{flex: 1, flexDirection: 'row'}}>
+         <TouchableHighlight onPress={goToEditForm} style={{width: 30, height: 30, marginRight: 5,  justifyContent: 'flex-end'}}>
          <Image
-              style={{width: 20, height: 20, marginLeft:5}}
-              source={require('../images/delete.png')}
-              onPress={()=> this.remove()}
-
-
+              style={{width: 30, height: 30}}
+              source={require('../images/edit.png')}
             />
+        </TouchableHighlight>
+         <TouchableHighlight onPress={()=> this.remove(data.id)} style={{width: 30, height: 30}}
+>
+         <Image
+              style={{width: 30, height: 30}}
+              source={require('../images/delete.png')}
+            />
+        </TouchableHighlight>
+        </View>
        </View>
        <View style={styles.separator} />
      </View>
-   </TouchableHighlight>
       )
   }
 
@@ -69,13 +87,10 @@ componentWillReceiveProps(props) {
 
 const styles = StyleSheet.create({
   row: {
+    flexDirection: 'row',
     padding: 10,
     backgroundColor: '#fff',
     flex: 1
-  },
-  text: {
-    flex: 1,
-    fontSize: 20
   },
   separator: {
     height: 1,
@@ -83,5 +98,9 @@ const styles = StyleSheet.create({
   },
   todoText: {
     flex: 1,
+  },
+  price: {
+    flex: 1,
+    color: 'green'
   }
 })
