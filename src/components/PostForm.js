@@ -71,6 +71,7 @@ add(){
       time: new Date().getTime()
     });
     this.setState({title: '', location: '', price: '', category: '', description: ''})
+    Actions.post();
     }
    }
 

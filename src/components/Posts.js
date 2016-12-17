@@ -32,17 +32,9 @@ export default class Posts extends Component {
   }
 
   render(){
-    const goToPostForm = () => Actions.postform();
-
     return(
       <View style={styles.container}>
       <View style={styles.inputcontainer}>
-      <TouchableHighlight onPress={goToPostForm} style={{width: 30, height: 30}}>
-      <Image
-           style={{width: 30, height: 30}}
-           source={require('../images/add.png')}
-         />
-      </TouchableHighlight>
        <ItemList items={this.state.items}/>
        </View>
      </View>
@@ -53,7 +45,8 @@ export default class Posts extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#d9d9d9',
-    marginTop:60
+    marginTop:60,
+    flex:1
   },
   text: {
     fontSize: 20

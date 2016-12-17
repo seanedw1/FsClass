@@ -44,12 +44,23 @@ remove(id){
 }
 
   renderRows = (data) => {
-    const goToEditForm = () => Actions.editform();
+
+    console.log("itemslist data", data);
+
+    const goToEditForm = () => Actions.editform({
+      title: data.title,
+      location: data.location,
+      price: data.price,
+      Category: data.category,
+      Description: data.description,
+      id: data.id
+    });
+
       return (
      <View>
        <View style={styles.row}>
-         <Text style={styles.todoText}>{data.title}</Text>
-         <Text style={styles.todoText}>{data.location}</Text>
+         <Text style={styles.title}>{data.title}</Text>
+         <Text style={styles.locate}>{data.location}</Text>
          <Text style={styles.price}>${data.price}</Text>
 
          <View style={{flex: 1, flexDirection: 'row'}}>
@@ -74,12 +85,15 @@ remove(id){
   }
 
   render() {
+    const gotoform = () => Actions.editform({test:'data'});
       return(
+        <View>
           <ListView
               dataSource={this.state.dataSource}
               renderRow={(data) => this.renderRows(data)}
               enableEmptySections={true}
           />
+          </View>
       )
   }
 }
@@ -96,7 +110,10 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#CCCCCC',
   },
-  todoText: {
+  title: {
+    flex: 1,
+  },
+  locate: {
     flex: 1,
   },
   price: {

@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import { Actions } from 'react-native-router-flux'
 import firebase from 'firebase'
-import config from '../util/config'
 
 import {
   View,
@@ -13,10 +12,10 @@ import {
 } from 'react-native'
 
 
-export default class EditForm extends Component {
+export default class editform extends Component {
   constructor(props){
     super(props)
-
+    console.log(this.props);
     this.state = {
       title: '',
       location: '',
@@ -24,23 +23,24 @@ export default class EditForm extends Component {
       category: '',
       description: '',
     }
-
   }
 
-  componentWillMount() {
-    // firebase data
-    firebase.database().ref('items').on('value', (snapshot) => {
-      let data = snapshot.val()
-      console.log(data)
-      for(let i in data) {
-      }
-      this.setState({items: this.state.items});
-      console.log(this.state.items);
-    })
-  }
+  componentWillReceiveProps(nextProps) {
+    let testvar = "testvar"
 
-  update(id){
-    const itemRef = firebase.database().ref('items').set({
+    console.log("jijuhgu", testvar);
+    console.log('component will receive props');
+    this.setState = {
+      title: this.state.title,
+      location: this.state.location,
+      price: this.state.price,
+      Category: this.state.category,
+      Description: this.state.description,
+      time: new Date().getTime()
+    }
+  }
+  update(){
+    let itemRef = firebase.database().ref('items/' + this.props.id).update({
           title: this.state.title,
           location: this.state.location,
           price: this.state.price,
@@ -48,16 +48,18 @@ export default class EditForm extends Component {
           Description: this.state.description,
           time: new Date().getTime()
         });
-        }
+      }
 
 
-  render(data){
+  render(){
+    console.log("in render", this.props);
+    console.log("state in render", this.state);
     return(
       <View style={styles.container}>
 
       <View style={styles.inputcontainer}>
-
-      <TextInput placeholder="Title"
+      <Text>Added: {this.props.title}</Text>
+      <TextInput placeholder={this.props.title}
       style={styles.input}
       ref="title"
       value={this.state.title}
@@ -91,9 +93,14 @@ export default class EditForm extends Component {
       value={this.state.description}
       onChangeText={(description)=> this.setState({description})}
       />
+      <Text>{this.props.id}</Text>
+      <Text>{this.props.title}</Text>
+      <Text>{this.props.location}</Text>
+      <Text>{this.props.price}</Text>
+      <Text>{this.props.category}</Text>
       <TouchableHighlight
               style={styles.button}
-              onPress={()=> this.update(data.id)}
+              onPress={()=> this.update(this.props.id)}
               >
               <Text style={styles.btnText}>Update</Text>
             </TouchableHighlight>

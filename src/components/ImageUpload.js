@@ -7,12 +7,7 @@ import {
   Button
 } from 'react-native'
 
-import ImagePicker from 'react-native-image-crop-picker';
-
-
 export default class ImageUpload extends Component {
-
-
 
   render(){
     return(
@@ -28,6 +23,7 @@ accessibilityLabel="Learn more about this purple button"
 title="Select image"
 color="#841584"
 accessibilityLabel="Learn more about this purple button"
+onPress={()=> this.add()}
 />
      </View>
     )
