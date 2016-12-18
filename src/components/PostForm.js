@@ -60,7 +60,7 @@ add(){
   const id = Math.random().toString(36).substring(7)
   const itemRef = itemsRef.child(id)
 
-  if (this.state.title && this.state.location && this.state.price !== '') {
+  if (this.state.title && this.state.location && this.state.price && this.state.category && this.state.description !== '') {
     itemRef.set({
       id,
       title: this.state.title,

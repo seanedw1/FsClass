@@ -17,19 +17,15 @@ export default class editform extends Component {
     super(props)
     console.log(this.props);
     this.state = {
-      title: '',
-      location: '',
-      price: '',
-      category: '',
-      description: '',
+      title: this.props.title,
+      location: this.props.location,
+      price: this.props.price,
+      Category: this.props.Category,
+      Description: this.props.Description,
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    let testvar = "testvar"
-
-    console.log("jijuhgu", testvar);
-    console.log('component will receive props');
     this.setState = {
       title: this.state.title,
       location: this.state.location,
@@ -44,10 +40,12 @@ export default class editform extends Component {
           title: this.state.title,
           location: this.state.location,
           price: this.state.price,
-          Category: this.state.category,
-          Description: this.state.description,
+          Category: this.state.Category,
+          Description: this.state.Description,
           time: new Date().getTime()
         });
+        this.setState({title: '', location: '', price: '', category: '', description: ''})
+        Actions.post();
       }
 
 
@@ -56,10 +54,8 @@ export default class editform extends Component {
     console.log("state in render", this.state);
     return(
       <View style={styles.container}>
-
       <View style={styles.inputcontainer}>
-      <Text>Added: {this.props.title}</Text>
-      <TextInput placeholder={this.props.title}
+      <TextInput placeholder="title"
       style={styles.input}
       ref="title"
       value={this.state.title}
@@ -76,6 +72,7 @@ export default class editform extends Component {
       <TextInput placeholder="$ price"
       style={styles.input}
       ref="price"
+      maxLength = {5}
       value={this.state.price}
       onChangeText={(price)=> this.setState({price})}
       />
@@ -93,14 +90,9 @@ export default class editform extends Component {
       value={this.state.description}
       onChangeText={(description)=> this.setState({description})}
       />
-      <Text>{this.props.id}</Text>
-      <Text>{this.props.title}</Text>
-      <Text>{this.props.location}</Text>
-      <Text>{this.props.price}</Text>
-      <Text>{this.props.category}</Text>
       <TouchableHighlight
               style={styles.button}
-              onPress={()=> this.update(this.props.id)}
+              onPress={()=> this.update()}
               >
               <Text style={styles.btnText}>Update</Text>
             </TouchableHighlight>

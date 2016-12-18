@@ -28,7 +28,7 @@ export default class App extends Component{
     return(
       <Router>
         <Scene key="root">
-            <Scene key="TabBar" tabs={true}  tabBarStyle={{ backgroundColor: '#4484ce' }}>
+            <Scene key="TabBar" tabs={true}  tabBarStyle={{ backgroundColor: '#57bc90' }}>
 
               <Scene key="feed" component={Feed} title="Feed" initial={true} icon={TabIcon}/>
 
