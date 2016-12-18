@@ -62,9 +62,6 @@ remove(id){
          <Text style={styles.title}>{data.title}</Text>
          <Text style={styles.locate}>{data.location}</Text>
          <Text style={styles.price}>${data.price}</Text>
-         <Text style={styles.price}>${data.category}</Text>
-         <Text style={styles.price}>${data.description}</Text>
-
 
          <View style={{flex: 1, flexDirection: 'row'}}>
          <TouchableHighlight onPress={goToEditForm} style={{width: 30, height: 30, marginRight: 5,  justifyContent: 'flex-end'}}>

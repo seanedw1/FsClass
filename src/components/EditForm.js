@@ -30,8 +30,8 @@ export default class editform extends Component {
       title: this.state.title,
       location: this.state.location,
       price: this.state.price,
-      Category: this.state.category,
-      Description: this.state.description,
+      Category: this.state.Category,
+      Description: this.state.Description,
       time: new Date().getTime()
     }
   }
@@ -44,7 +44,7 @@ export default class editform extends Component {
           Description: this.state.Description,
           time: new Date().getTime()
         });
-        this.setState({title: '', location: '', price: '', category: '', description: ''})
+        this.setState({title: '', location: '', price: '', Category: '', Description: ''})
         Actions.post();
       }
 
@@ -80,15 +80,15 @@ export default class editform extends Component {
       <TextInput placeholder="Category"
       style={styles.input}
       ref="category"
-      value={this.state.category}
-      onChangeText={(category)=> this.setState({category})}
+      value={this.state.Category}
+      onChangeText={(Category)=> this.setState({Category})}
       />
 
       <TextInput placeholder="Description"
       style={styles.input}
       ref="description"
-      value={this.state.description}
-      onChangeText={(description)=> this.setState({description})}
+      value={this.state.Description}
+      onChangeText={(Description)=> this.setState({Description})}
       />
       <TouchableHighlight
               style={styles.button}
